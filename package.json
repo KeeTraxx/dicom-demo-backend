@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "daikon": "^1.2.46",
+    "express": "^4.21.2",
+    "graphql": "^16.10.0",
+    "graphql-tag": "^2.12.6",
+    "sequelize": "^6.37.5",
+    "sequelize-typescript": "^2.1.6",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/node": "^22.10.10",
+    "typescript": "^5.7.3"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "start": "npm run compile && node ./dist/index.js"
+  }
+}

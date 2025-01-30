@@ -10,6 +10,7 @@ import cors from 'cors';
 import { dicomFileResolvers, dicomFileTypeDefs } from './entities/dicom-file/dicom-file-graphql';
 import { Sequelize } from 'sequelize';
 import { fetch } from './download/download';
+import { typeDefs as scalarTypeDefs } from 'graphql-scalars';
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
@@ -19,7 +20,11 @@ const httpServer = http.createServer(app);
 
 
 const server = new ApolloServer({
-    typeDefs: [patientTypeDefs, dicomFileTypeDefs],
+    typeDefs: [
+        scalarTypeDefs,
+        patientTypeDefs, 
+        dicomFileTypeDefs
+    ],
     resolvers: [patientResolvers, dicomFileResolvers],
     cache: 'bounded',
     introspection: true,
@@ -36,7 +41,7 @@ const server = new ApolloServer({
     await server.start();
     app.use(cors());
 
-    app.use('/upload', bodyParser.raw({
+    app.use('/api/upload', bodyParser.raw({
         type: 'application/dicom',
         inflate: true,
         limit: '50mb'
@@ -44,14 +49,19 @@ const server = new ApolloServer({
         upload
     );
 
-    app.use('/fetch/:id',
+    app.use('/api/fetch/:id',
         fetch
     );
 
     app.use(
+        '/api',
         express.json(),
         expressMiddleware(server)
     );
+
+    app.use('/', (_, res) => {
+        res.redirect('/api');
+    });
 
     await new Promise<void>((resolve) =>
         httpServer.listen({ port: 4000 }, resolve),

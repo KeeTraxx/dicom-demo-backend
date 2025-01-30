@@ -8,8 +8,16 @@ import { sequelize } from "../../config/sequelize";
 export class DicomFile extends Model<InferAttributes<DicomFile>, InferCreationAttributes<DicomFile>> {
     declare id: CreationOptional<string>;
     declare fileName: string;
-    declare studyDate: Date;
-    declare studyTime: number;
+    declare studyDate: Date | null;
+    declare studyTime: number | null;
+    declare studyDescription: string | null;
+    declare seriesDate: Date | null;
+    declare seriesTime: number | null;
+    declare seriesDescription: number | null;
+    declare physicianName: string | null;
+    declare manufacturer: string | null;
+    declare manufacturerModelName: string | null;
+    declare modality: string | null;
     declare payload: Buffer;
     declare createdAt: CreationOptional<Date>;
     declare patientId: ForeignKey<Patient["id"]>;
@@ -22,10 +30,17 @@ DicomFile.init({
         primaryKey: true
     },
     fileName: DataTypes.STRING,
-    payload: DataTypes.BLOB,
     studyDate: DataTypes.DATE,
     studyTime: DataTypes.INTEGER,
-    patientId: DataTypes.INTEGER,
+    studyDescription: DataTypes.STRING,
+    seriesDate: DataTypes.DATE,
+    seriesTime: DataTypes.INTEGER,
+    seriesDescription: DataTypes.STRING,
+    physicianName: DataTypes.STRING,
+    manufacturer: DataTypes.STRING,
+    manufacturerModelName: DataTypes.STRING,
+    payload: DataTypes.BLOB,
+    modality: DataTypes.STRING,
     createdAt: DataTypes.DATE
 }, { sequelize });
 

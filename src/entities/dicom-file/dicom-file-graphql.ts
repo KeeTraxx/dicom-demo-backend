@@ -4,10 +4,17 @@ import { DicomFile } from "./dicom-file-sequelize";
 export const dicomFileTypeDefs = gql`
     type DicomFile {
         id: ID!
-        fileName: String!
-        studyDate: String!
-        studyTime: Int!
-        patientId: ID!
+        fileName: String
+        studyDate: Date
+        studyTime: Float
+        studyDescription: String
+        seriesDate: Date
+        seriesTime: Float
+        seriesDescription: String
+        physicianName: String
+        manufacturer: String
+        manufacturerModelName: String
+        modality: String
         createdAt: String!
     }
 

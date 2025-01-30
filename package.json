@@ -6,10 +6,12 @@
     "daikon": "^1.2.46",
     "express": "^4.21.2",
     "graphql": "^16.10.0",
+    "graphql-scalars": "^1.24.0",
     "graphql-tag": "^2.12.6",
     "sequelize": "^6.37.5",
     "sequelize-typescript": "^2.1.6",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "tsc-watch": "^6.2.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -17,7 +19,6 @@
     "typescript": "^5.7.3"
   },
   "scripts": {
-    "compile": "tsc",
-    "start": "npm run compile && node ./dist/index.js"
+    "start": "tsc-watch --noClear --onSuccess \"node ./dist/index.js\""
   }
 }
